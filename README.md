@@ -1,6 +1,15 @@
 # Draw_Guess
 
-## ToDO list
+## Table of Contents
+1. [ToDo List](#todo-list)
+2. [Env Setting](#env-setting)
+3. [Data](#data)
+4. [Related Work](#related-work)
+5. [Methodology](#methodology)
+6. [Evaluation](#evaluation)
+7. [Reference](#reference)
+
+## ToDo List
 
 Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7WWXoFBzTxik3T2vjcWCKDIGKf1-pUFZ3PUxI/edit)
 
