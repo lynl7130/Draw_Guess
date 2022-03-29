@@ -10,10 +10,12 @@ class Classifier(pl.LightningModule):
         lr=0.05,
         model_name="ResNet",
         input_dim=2,
-        num_classes=250):
+        num_classes=250,
+        ):
         super().__init__()
         self.batch_size = 32
-        print("note, this is a dead batch size for now")
+        self.steps_per_epoch = 11808
+        print("note, this is a dead batch size / steps_per_epoch for now")
         self.save_hyperparameters()
         if model_name=="ResNet":
             self.model = create_ResNet(
@@ -58,14 +60,14 @@ class Classifier(pl.LightningModule):
             weight_decay=5e-4,
         )
         
-        steps_per_epoch = 45000 // self.batch_size
-        assert False, "should change the 45000 above! not cifar anymore"
+        #steps_per_epoch = 45000 // self.batch_size
+        #assert False, "should change the 45000 above! not cifar anymore"
         scheduler_dict = {
             "scheduler": OneCycleLR(
                 optimizer,
                 0.1,
                 epochs=self.trainer.max_epochs,
-                steps_per_epoch=steps_per_epoch,
+                steps_per_epoch=self.steps_per_epoch,
             ),
             "interval": "step",
         }

@@ -66,11 +66,11 @@ class SketchyDataModule(pl.LightningDataModule):
         else:
             self.data_test = SketchyDataset(self.root_dir, is_train=False)
     def train_dataloader(self):
-        return DataLoader(self.data_train, shuffle=True, batch_size=32, num_workers=16)
+        return DataLoader(self.data_train, shuffle=True, batch_size=32, num_workers=8)
     def val_dataloader(self):
-        return DataLoader(self.data_val, batch_size=32, num_workers=16)
+        return DataLoader(self.data_val, batch_size=32, num_workers=8)
     def test_dataloader(self):
-        return DataLoader(self.data_test, batch_size=32, num_workers=16)
+        return DataLoader(self.data_test, batch_size=32, num_workers=8)
 
 
 
