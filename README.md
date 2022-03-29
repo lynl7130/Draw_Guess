@@ -88,8 +88,8 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
       <td><img src="demo/n02691156_58-3.png" alt="4" width = 256px height = 256px></td>
     </tr>
     <tr>
-      <td><img src="demo/n02691156_58-4.png" alt="5" width = 256px height = 256px>
-      <td><img src="demo/n02691156_58-5.png" align="right" alt="6" width = 256px height = 256px>
+      <td><img src="demo/n02691156_58-4.png" alt="5" width = 256px height = 256px></td>
+      <td><img src="demo/n02691156_58-5.png" align="right" alt="6" width = 256px height = 256px></td>
   
   </tr>
 </table>
@@ -159,6 +159,33 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
     </tr>
 
 </table>
+
+## Related Work 
+
+The task we want to solve is free-hand full-sketch image-based sketch recognition. i.e. We assume no stroke sequence information will be provided, and the only input we have will be a picture. Thus, we analyze four works tackling the same task [\[4, 5, 6, 7\]](#reference).
+<table>
+  <tr>
+    <td> Method </td>
+    <td> Description </td>
+  </tr>
+  <tr>
+    <td> [4](#reference) SketchNet </td>
+    <td><img src="demo/SketchNet.png"></td>
+  </tr>
+  <tr>
+    <td> [5](#reference) Deepsketch </td>
+    <td><img src="demo/Deepsketch.png"></td>
+  </tr>
+  <tr>
+    <td> [6](#reference) CNG-SCN </td>
+    <td><img src="demo/Warehouse.png"></td>
+  </tr>
+  <tr>
+    <td> [7](#reference) Hybrid CNN </td>
+    <td><img src="demo/Hybrid.png"></td>
+  </tr>
+</table>
+
 
 
 ## Reference
