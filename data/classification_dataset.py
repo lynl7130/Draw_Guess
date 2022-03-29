@@ -1,13 +1,15 @@
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader, random_split
 import os
 from PIL import Image, ImageOps
 import numpy as np
+import pytorch_lightning as pl
 
 
 class SketchyDataset(Dataset):
     def __init__(self,
-        root_dir
+        root_dir,
+        is_train
     ):
         super().__init__()
         
@@ -28,8 +30,12 @@ class SketchyDataset(Dataset):
         for aug in os.listdir(sketch_dir):
             for cid, cls_ in enumerate(self.classes):
                 path = os.path.join(sketch_dir, aug, cls_)
-                self.data += [(os.path.join(path, p), cid) for p in os.listdir(path)]
-                
+                # set aside 1 of 5 sketches for testing
+                if is_train:
+                    self.data += [(os.path.join(path, p), cid) for p in os.listdir(path) if not p.endswith("5.png")]
+                else:
+                    self.data += [(os.path.join(path, p), cid) for p in os.listdir(path) if p.endswith("5.png")]
+                 
 
     def get_class(self):
         return self.classes
@@ -44,15 +50,34 @@ class SketchyDataset(Dataset):
         tmp[img == 1, 1] = 1
 
         return {
-            "img": tmp, # make sure between 0 and 1
+            "img": tmp.transpose(2, 0, 1), # shape 2x256x256, classify as has stroke/no stroke
             "tgt": self.data[idx][1]
         }
 
+class SketchyDataModule(pl.LightningDataModule):
+    def __init__(self, root_dir):
+        super().__init__()
+        self.root_dir = root_dir
+    def setup(self, stage= None):
+        if stage == "fit" or stage is None:
+            data_full = SketchyDataset(self.root_dir, is_train=True)
+            num_train = int(11/12. * len(data_full))
+            self.data_train, self.data_val = random_split(data_full, [num_train, len(data_full) - num_train])
+        else:
+            self.data_test = SketchyDataset(self.root_dir, is_train=False)
+    def train_dataloader(self):
+        return DataLoader(self.data_train, shuffle=True, batch_size=32, num_workers=16)
+    def val_dataloader(self):
+        return DataLoader(self.data_val, batch_size=32, num_workers=16)
+    def test_dataloader(self):
+        return DataLoader(self.data_test, batch_size=32, num_workers=16)
+
+
 
 if __name__ == "__main__":
-    dataset = SketchyDataset("/mnt/f/sketchy/256x256")
+    dataset = SketchyDataset("/mnt/f/sketchy/256x256", True)
     print(len(dataset))
     sample = dataset[0]
     print(np.max(sample["img"]), np.min(sample['img']), sample['img'].shape)
-    img = Image.fromarray(np.uint8(np.argmax(sample['img'], axis=-1)*255))
+    img = Image.fromarray(np.uint8(np.argmax(sample['img'], axis=0)*255))
     img.save("tmp.png")
