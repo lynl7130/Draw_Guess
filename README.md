@@ -163,4 +163,23 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 
 ## Reference
 
-ToDO
+[1] Xu, P, Hospedales, TM, Yin, Q, Song, Y-Z, Xiang, T & Wang, L 2022, 'Deep Learning for Free-Hand Sketch: A Survey', IEEE Transactions on Pattern Analysis and Machine Intelligence.
+
+[2] P. Sangkloy, N. Burnell, C. Ham, and J. Hays. The Sketchy Database: Learning to Retrieve Badly Drawn Bunnies. ACM Trans. Graph., 35(4):119:1–119:12, July 2016.
+
+[3] Q. Yu, Y. Yang, F. Liu, Y.-Z. Song, T. Xiang, and T. M. Hospedales, “Sketch-a-net: A deep neural network that beats humans,” IJCV, 2017
+
+[4] H. Zhang, S. Liu, C. Zhang, W. Ren, R. Wang, and X. Cao,
+“Sketchnet: Sketch classification with web images,” in CVPR,
+2016.
+
+[5] O. Seddati, S. Dupont, and S. Mahmoudi, “Deepsketch: deep convolutional neural networks for sketch recognition and similarity search,” in CBMI, 2015.
+
+[6] K. Zhang, W. Luo, L. Ma, and H. Li, “Cousin network guided
+sketch recognition via latent attribute warehouse,” in AAAI, 2019.
+
+[7] X. Zhang, Y. Huang, Q. Zou, Y. Pei, R. Zhang, and S. Wang,
+“A hybrid convolutional neural network for sketch recognition,”
+PRL, 2020
+
+[8] A. Prabhu, V. Batchu, S. A. Munagala, R. Gajawada, and A. Namboodiri, “Distribution-aware binarization of neural networks for sketch recognition,” in WACV, 2018.
