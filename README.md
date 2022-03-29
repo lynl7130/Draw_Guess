@@ -12,13 +12,7 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] Dataloader
     - [x] classification metrics
     - [x] vanilla classifier (ResNet)
-  - [ ] main pipeline for gan
-    - [ ] Dataloader
-    - [ ] generation metrics 
-    - [ ] vanilla generator (?)
-  - [ ] field study
-    - [ ] sketch recognition
-    - [ ] sketch generation
+  - [ ] field study of sketch recognition
   - [ ] brainstorm of methodology
   - [ ] brainstorm of metrics
   - [ ] brainstorm of ethics
