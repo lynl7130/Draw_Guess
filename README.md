@@ -52,3 +52,18 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 |            ├── ...
 └── README.txt
 ```
+
+### Sample image - 5 sketchs
+<table>
+  <tr>
+  <td> <img src="demo/n02691156_58.jpg"  alt="1" width = 256px height = 256px ></td>
+    <td> <img src="demo/n02691156_58-1.png"  alt="2" width = 256px height = 256px ></td>
+    <td><img src="demo/n02691156_58-2.png" alt="3" width = 256px height = 256px></td>
+   </tr> 
+   <tr>
+      <td><img src="demo/n02691156_58-3.png" alt="4" width = 256px height = 256px></td>
+      <td><img src="demo/n02691156_58-4.png" align="right" alt="5" width = 256px height = 256px>
+      <td><img src="demo/n02691156_58-5.png" align="right" alt="6" width = 256px height = 256px>
+  </td>
+  </tr>
+</table>
