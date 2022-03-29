@@ -1,5 +1,12 @@
 # Draw_Guess
 
+## ToDO list
+
+- [ ] Work on the website ~3d #feat @john 2020-03-20  
+- [ ] Fix the homepage ~1d #bug @jane  
+  - [ ] Sub-task or description  
+
+
 ## Env Setting
 **System**: Ubuntu 18.04 (Linux)
 
@@ -7,7 +14,8 @@
 
 **PyTorch CUDA Toolkit**: 11.3
  
-
+### Installation
+```something here```
 
 
 ## Data
@@ -71,7 +79,7 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 </table>
 
 ### Augmentations within 'photo'
-<table border="2">
+<table border="1">
     <tr>
         <td> aug_id </td>
         <td> description </td>
@@ -90,7 +98,7 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 </table>
 
 ### Augmentations within 'sketch'
-<table border="2">
+<table border="1">
     <tr>
         <td> aug_id </td>
         <td> description </td>
@@ -135,3 +143,8 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
     </tr>
 
 </table>
+
+
+## Reference
+
+ToDO
