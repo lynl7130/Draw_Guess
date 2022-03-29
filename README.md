@@ -8,11 +8,12 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
 - [x] 3/9 - 3/16 Project Check-in #1 
 - [x] 3/18 Project Proposal
 - [ ] 4/8 - 4/15 Project Check-in #2 
-  - [ ] Dataloader
-  - [ ] main pipeline for classification
-    - [ ] classification metrics
-    - [ ] vanilla classifier (ResNet)
+  - [x] main pipeline for classification
+    - [x] Dataloader
+    - [x] classification metrics
+    - [x] vanilla classifier (ResNet)
   - [ ] main pipeline for gan
+    - [ ] Dataloader
     - [ ] generation metrics 
     - [ ] vanilla generator (?)
   - [ ] field study 
