@@ -16,7 +16,9 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [ ] Dataloader
     - [ ] generation metrics 
     - [ ] vanilla generator (?)
-  - [ ] field study 
+  - [ ] field study
+    - [ ] sketch recognition
+    - [ ] sketch generation
   - [ ] brainstorm of methodology
   - [ ] brainstorm of metrics
   - [ ] brainstorm of ethics
