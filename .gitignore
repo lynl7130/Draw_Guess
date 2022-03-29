@@ -1,6 +1,6 @@
 env/*
-*.png
-*.jpg
+tmp.png
+tmp.jpg
 __pycache__/*
 */__pycache__/*
 lightning_logs/*
