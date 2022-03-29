@@ -14,7 +14,7 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] vanilla classifier (ResNet)
   - [x] field study of sketch recognition
   - [ ] brainstorm of methodology
-  - [ ] brainstorm of metrics
+  - [x] brainstorm of metrics
   - [ ] brainstorm of ethics
   - [ ] write up outlines
 - [ ] 4/20 - 4/27 Project Check-in #3
@@ -188,9 +188,40 @@ The task we want to solve is free-hand full-sketch image-based sketch recognitio
 
 ### summary
 
-- [4], [6]: make use of real images
-- [4], [5], [6]: similarities; could be similarities between real images and sketches, or within sketches
+- [4], [6]: make use of natural images
+- [4], [5], [6]: similarities; could between natural images and sketches, or within sketches
 - [7]: make use of shape clue
+- [6], [7]: side tasks, extra supervision
+- [4], [5]: retrieval-based recognition
+
+## Methodology
+
+```hint: CLIP-based ``` 
+
+## Evaluation
+
+### data
+quantitative: 
+- set aside all *-5.png as test set.
+
+qualitative: 
+- above test set visualization
+- (optional) human input window
+
+
+### metrics
+<table border="1">
+  <tr>
+    <td>Accuracies[%]</td>
+    <td>rank-1</td>
+    <td>rank-2</td>
+    <td>rank-3</td>
+    <td>rank-4</td>
+    <td>rank-5</td>
+  </tr>
+
+</table>
+
 
 
 
