@@ -2,9 +2,28 @@
 
 ## ToDO list
 
-- [ ] Work on the website ~3d #feat @john 2020-03-20  
-- [ ] Fix the homepage ~1d #bug @jane  
-  - [ ] Sub-task or description  
+Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7WWXoFBzTxik3T2vjcWCKDIGKf1-pUFZ3PUxI/edit)
+
+- [x] 2/18 Forming teams
+- [x] 3/9 - 3/16 Project Check-in #1 
+- [x] 3/18 Project Proposal
+- [ ] 4/8 - 4/15 Project Check-in #2 
+  - [ ] Dataloader
+  - [ ] main pipeline for classification
+    - [ ] classification metrics
+    - [ ] vanilla classifier (ResNet)
+  - [ ] main pipeline for gan
+    - [ ] generation metrics 
+    - [ ] vanilla generator (?)
+  - [ ] field study 
+  - [ ] brainstorm of methodology
+  - [ ] brainstorm of metrics
+  - [ ] brainstorm of ethics
+  - [ ] write up outlines
+- [ ] 4/20 - 4/27 Project Check-in #3
+- [ ] 5/2 - 5/9 Final Check in
+- [ ] 5/11 Final Project Due
+- [ ] 5/13 Deep Learning Day 2022
 
 
 ## Env Setting
@@ -61,7 +80,7 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 └── README.txt
 ```
 
-### Sample image - 5 sketchs
+### Sample: 1 image - 5 sketchs
 <table>
   <tr>
     <td> <img src="demo/n02691156_58.jpg"  alt="1" width = 256px height = 256px align="center"></td>
