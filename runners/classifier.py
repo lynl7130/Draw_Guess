@@ -57,7 +57,9 @@ class Classifier(pl.LightningModule):
             momentum=0.9,
             weight_decay=5e-4,
         )
+        
         steps_per_epoch = 45000 // self.batch_size
+        assert False, "should change the 45000 above! not cifar anymore"
         scheduler_dict = {
             "scheduler": OneCycleLR(
                 optimizer,
@@ -67,5 +69,6 @@ class Classifier(pl.LightningModule):
             ),
             "interval": "step",
         }
+        
         return {"optimizer": optimizer, "lr_scheduler": scheduler_dict}
-
+        
