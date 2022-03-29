@@ -12,7 +12,7 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] Dataloader
     - [x] classification metrics
     - [x] vanilla classifier (ResNet)
-  - [ ] field study of sketch recognition
+  - [x] field study of sketch recognition
   - [ ] brainstorm of methodology
   - [ ] brainstorm of metrics
   - [ ] brainstorm of ethics
@@ -169,22 +169,28 @@ The task we want to solve is free-hand full-sketch image-based sketch recognitio
     <td> Description </td>
   </tr>
   <tr>
-    <td> [4](#reference) SketchNet </td>
+    <td> [4] SketchNet </td>
     <td><img src="demo/SketchNet.png"></td>
   </tr>
   <tr>
-    <td> [5](#reference) Deepsketch </td>
+    <td> [5] Deepsketch </td>
     <td><img src="demo/Deepsketch.png"></td>
   </tr>
   <tr>
-    <td> [6](#reference) CNG-SCN </td>
+    <td> [6] CNG-SCN </td>
     <td><img src="demo/Warehouse.png"></td>
   </tr>
   <tr>
-    <td> [7](#reference) Hybrid CNN </td>
+    <td> [7] Hybrid CNN </td>
     <td><img src="demo/Hybrid.png"></td>
   </tr>
 </table>
+
+### summary
+
+- [4], [6]: make use of real images
+- [4], [5], [6]: similarities; could be similarities between real images and sketches, or within sketches
+- [7]: make use of shape clue
 
 
 
