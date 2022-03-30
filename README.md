@@ -21,6 +21,7 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] Dataloader
     - [x] classification metrics
     - [x] vanilla classifier (ResNet)
+  - [ ] write interface using [Gradio](https://gradio.app/)
   - [x] field study of sketch recognition
   - [ ] brainstorm of methodology
   - [x] brainstorm of metrics
