@@ -9,13 +9,14 @@ class Classifier(pl.LightningModule):
     def __init__(self, 
         lr=0.05,
         model_name="ResNet",
-        input_dim=2,
+        input_dim=1,
         num_classes=250,
+        batch_size = 32,
+        steps_per_epoch = 11808
         ):
         super().__init__()
-        self.batch_size = 32
-        self.steps_per_epoch = 11808
-        print("note, this is a dead batch size / steps_per_epoch for now")
+        self.batch_size = batch_size
+        self.steps_per_epoch = steps_per_epoch 
         self.save_hyperparameters()
         if model_name=="ResNet":
             self.model = create_ResNet(

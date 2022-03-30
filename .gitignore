@@ -3,4 +3,5 @@ tmp.png
 tmp.jpg
 __pycache__/*
 */__pycache__/*
+flagged/*
 lightning_logs/*

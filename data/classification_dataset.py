@@ -45,32 +45,47 @@ class SketchyDataset(Dataset):
 
     def __getitem__(self, idx):
         img = np.array(ImageOps.grayscale(Image.open(self.data[idx][0])))/255.
-        tmp = np.empty((img.shape[0], img.shape[1], 2))
-        tmp[img == 0, 0] = 1
-        tmp[img == 1, 1] = 1
 
         return {
-            "img": tmp.transpose(2, 0, 1), # shape 2x256x256, classify as has stroke/no stroke
+            "img": np.expand_dims(img, axis=0), # shape 2x256x256, classify as has stroke/no stroke
             "tgt": self.data[idx][1]
         }
 
 class SketchyDataModule(pl.LightningDataModule):
-    def __init__(self, root_dir):
+    def __init__(self, 
+        root_dir,
+        train_ratio=11/12.,
+        batch_size=32,
+        num_workers=8):
         super().__init__()
         self.root_dir = root_dir
+        self.train_ratio = train_ratio
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.data_train = None
+        self.data_val = None
+        self.data_test = None
+    def calc_steps_per_epoch(self):
+        if self.data_train:
+            return len(self.data_train) // self.batch_size
+        else:
+            data_full = SketchyDataset(self.root_dir, is_train=True)
+            num_train = int(self.train_ratio * len(data_full))
+            return num_train // self.batch_size
+
     def setup(self, stage= None):
         if stage == "fit" or stage is None:
             data_full = SketchyDataset(self.root_dir, is_train=True)
-            num_train = int(11/12. * len(data_full))
+            num_train = int(self.train_ratio * len(data_full))
             self.data_train, self.data_val = random_split(data_full, [num_train, len(data_full) - num_train])
         else:
             self.data_test = SketchyDataset(self.root_dir, is_train=False)
     def train_dataloader(self):
-        return DataLoader(self.data_train, shuffle=True, batch_size=32, num_workers=8)
+        return DataLoader(self.data_train, shuffle=True, batch_size=self.batch_size, num_workers=self.num_workers)
     def val_dataloader(self):
-        return DataLoader(self.data_val, batch_size=32, num_workers=8)
+        return DataLoader(self.data_val, batch_size=self.batch_size, num_workers=self.num_workers)
     def test_dataloader(self):
-        return DataLoader(self.data_test, batch_size=32, num_workers=8)
+        return DataLoader(self.data_test, batch_size=self.batch_size, num_workers=self.num_workers)
 
 
 
@@ -79,5 +94,5 @@ if __name__ == "__main__":
     print(len(dataset))
     sample = dataset[0]
     print(np.max(sample["img"]), np.min(sample['img']), sample['img'].shape)
-    img = Image.fromarray(np.uint8(np.argmax(sample['img'], axis=0)*255))
+    img = Image.fromarray(np.uint8(sample['img'][0]*255))
     img.save("tmp.png")
