@@ -4,51 +4,40 @@ import torch
 from pytorch_lightning import Trainer, seed_everything
 from pytorch_lightning.callbacks import LearningRateMonitor, TQDMProgressBar
 from pytorch_lightning.loggers import TensorBoardLogger
+from configs import get_args
+
+config = get_args()
+train_ratio = float(config["train_base"]-1) / float(config["train_base"])
 
 
-seed = 7
-lr = 0.05
-input_dim = 1
-num_classes = 250
-batch_size = 32
-train_ratio = 11 / 12.
-root_dir = "/mnt/f/sketchy/256x256"
-num_workers = 4 #exceed -> overheat
-max_epochs = 1
-refresh_rate = 30
-log_dir = "lightning_logs/"
-exp_name = "resnet"
-model_name = "ResNet"
-
-seed_everything(seed)
+seed_everything(config["seed"])
 
 datamodule = data.SketchyDataModule(
-    root_dir=root_dir,
+    root_dir=config["root_dir"],
     train_ratio=train_ratio,
-    batch_size=batch_size,
-    num_workers=num_workers)
+    batch_size=config["batch_size"],
+    num_workers=config["num_workers"])
 
 
 steps_per_epoch = datamodule.calc_steps_per_epoch()
 
-model = runners.Classifier(lr=lr,
-    model_name=model_name,
-    input_dim=input_dim,
-    num_classes=num_classes,
-    batch_size=batch_size,
+model = runners.Classifier(lr=config["lr"],
+    model_name=config["model_name"],
+    input_dim=config["input_dim"],
+    num_classes=config["num_classes"],
+    batch_size=config["batch_size"],
     steps_per_epoch = steps_per_epoch)
 model.datamodule = datamodule
 
 
 trainer = Trainer(
-    max_epochs = max_epochs,
+    max_epochs = config["max_epochs"],
     gpus=min(1, torch.cuda.device_count()),
-    logger=TensorBoardLogger(log_dir, name=exp_name),
+    logger=TensorBoardLogger(config["log_dir"], name=config["exp_name"]),
     callbacks=[LearningRateMonitor(logging_interval="step"),
-        TQDMProgressBar(refresh_rate=refresh_rate)
+        TQDMProgressBar(refresh_rate=config["refresh_rate"])
     ],
-
+    val_check_interval=config["val_check_interval"]
 )
-
 trainer.fit(model, model.datamodule)
 trainer.test(model, model.datamodule)
