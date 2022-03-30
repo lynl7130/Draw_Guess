@@ -4,10 +4,11 @@
 1. [ToDo List](#todo-list)
 2. [Env Setting](#env-setting)
 3. [Data](#data)
-4. [Related Work](#related-work)
-5. [Methodology](#methodology)
-6. [Evaluation](#evaluation)
-7. [Reference](#reference)
+4. [Usage](#usage)
+5. [Related Work](#related-work)
+6. [Methodology](#methodology)
+7. [Evaluation](#evaluation)
+8. [Reference](#reference)
 
 ## ToDo List
 
@@ -169,6 +170,19 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
     </tr>
 
 </table>
+
+## Usage
+
+### prepare [environment](#env-setting) and [data](#data)
+
+### activate env
+```conda activate ./env```
+
+### train a vanilla model
+```python classify.py```
+
+### try interface
+```Everything is todo here```
 
 ## Related Work 
 
