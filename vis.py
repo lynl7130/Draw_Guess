@@ -3,26 +3,83 @@ import numpy as np
 from models import create_ResNet
 import torch
 from PIL import Image
+from configs import get_args
+import os
+from scipy import ndimage
+import torch.nn.functional as F
+from data import SketchyDataset
 
-device = torch.device("cuda") 
-#model = create_ResNet(
-#                2,
-#                250
-#            ).to(device)
+device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
+threshold=250
+
+config = get_args()
+print("Loading model architecture...")
+if config["model_name"]=="ResNet":
+    model = create_ResNet(
+        config["input_dim"],
+        config["num_classes"]
+        ).to(device)
+else:
+    assert False, "Undefined model name %s" % config["model_name"]
+
+print("Loading checkpoint...")
+assert config["resume_path"] is not None, "Vis ckpt not provided!"
+assert config["resume_path"].endswith(".ckpt") and os.path.exists(config["resume_path"]), "Not a legal vis ckpt!"
+ckpt = torch.load(config["resume_path"])["state_dict"]
+for name in model.state_dict():
+    model.state_dict()[name].copy_(ckpt["model." + name])
+model.eval()
+
+print("Loading class map...")
+data_full = SketchyDataset(config["root_dir"], is_train=True)
+classes = data_full.get_class()  
+
 
 def sketch_recognition(img):
     
-    # img will be fed in as numpy array with shape (28, 28)
-    
-    # note: this input need wash! 
-    # while our input size is (2, 256, 256)
-    # linear input (0-255) while ours discrete: 0/1 
-    print(np.unique(img), np.max(img), np.min(img))
-    
-    return ",".join([str(s) for s in img.shape])
-    
+    # input preprocessing
+    # value falls in between 0 - 255, not 0/255 as in our case
+    # also, the brush is thicker than ours, so thresholding to be 0/255
+    # followed by dilation
+    tmp = np.zeros_like(img).astype(float)
+    tmp[img > threshold] = 1.
+    tmp = ndimage.binary_dilation(tmp, structure=np.ones((10,10)).astype(tmp.dtype)).astype(tmp.dtype)
+    #img = tmp * 255
+    #tmp = Image.fromarray(np.uint8(img))
+    #tmp.save("test.png")
 
-#iface = gr.Interface(fn=sketch_recognition, inputs="sketchpad", outputs="label").launch()
-iface = gr.Interface(fn=sketch_recognition, inputs="sketchpad", outputs="text").launch()
+    # form input  
+    # time-consuming part! 10s
+    x = torch.from_numpy(tmp).to(device).view(1, 1, tmp.shape[0], tmp.shape[1]).float()   
+    #print(x.shape, torch.max(x), torch.min(x))
+    #return ",".join([x.shape, torch.max(x), torch.min(x)])
 
-iface.launch()
+    # pass model to get logits
+    out = model(x)
+    logits = F.softmax(out, dim=1)
+
+    topk = torch.topk(logits, k=config["topk"], dim=-1)
+    values = topk.values
+    indices = topk.indices
+    results = {}
+    for i, t in enumerate(indices.flatten()):
+        results[classes[int(t)]] = float(values[0][i])
+    return results
+    
+    
+if __name__ == "__main__":
+
+
+    #iface = gr.Interface(fn=sketch_recognition, inputs="sketchpad", outputs="label").launch()
+    iface = gr.Interface(fn=sketch_recognition, 
+        inputs=gr.inputs.Image(
+            shape=(256, 256), 
+            image_mode="L", 
+            invert_colors=False, 
+            source="canvas"
+        ), 
+
+        outputs="label").launch()
+
+    iface.launch()

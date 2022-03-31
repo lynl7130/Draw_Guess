@@ -5,3 +5,5 @@ __pycache__/*
 */__pycache__/*
 flagged/*
 lightning_logs/*
+tmp.png
+test.png

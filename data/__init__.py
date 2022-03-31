@@ -1,1 +1,1 @@
-from .classification_dataset import SketchyDataModule
+from .classification_dataset import SketchyDataModule, SketchyDataset

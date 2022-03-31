@@ -22,7 +22,7 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] Dataloader
     - [x] classification metrics
     - [x] vanilla classifier (ResNet)
-  - [ ] write interface using [Gradio](https://gradio.app/)
+  - [x] write interface using [Gradio](https://gradio.app/)
   - [x] field study of sketch recognition
   - [ ] brainstorm of methodology
   - [x] brainstorm of metrics
@@ -207,9 +207,9 @@ For details of the arguments, check [here](configs/args.py) and [here](configs/v
 ```python train.py ---exp_yaml configs/vanilla.yaml --resume_path path/to/your/ckpt --is_test```
 
 
-### Check Experiemnt Logs
+### Check Logs
 
-Faciliated by [Tensorboard](https://www.tensorflow.org/tensorboard)
+Faciliated by [Tensorboard](https://www.tensorflow.org/tensorboard).
 
 #### Visualize vanilla model log
 ```tensorboard --logdir ./lightning_logs/resnet/version_??```
@@ -217,7 +217,15 @@ Faciliated by [Tensorboard](https://www.tensorflow.org/tensorboard)
 <image src="demo/log_train_loss_vanilla.png">
 
 ### Interface
-```Everything is todo here```
+
+Faciliated by [Gradio](https://gradio.app).
+
+The same configuration as [train/test](#traintest).
+
+#### A sketchpad for the vanilla model
+```python vis.py --exp_yaml configs/vanilla.yaml --resume_path path/to/your/ckpt```
+
+<image src="demo/interface.png">
 
 ## Related Work 
 
@@ -256,6 +264,7 @@ The task we want to solve is free-hand full-sketch image-based sketch recognitio
 ## Methodology
 
 ```hint: CLIP-based ``` 
+```hint: flip 1/0 - black/white might help? currently activation is blank```
 
 ## Evaluation
 
