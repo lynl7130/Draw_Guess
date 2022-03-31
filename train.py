@@ -33,6 +33,9 @@ model.datamodule = datamodule
 # tensorboard logger will automatically create a version directory for us under log_dir/exp_name 
 # need do this ahead because ModelCheckpoint rely on logger to decide checkpoing save dir
 logger = TensorBoardLogger(config["log_dir"], name=config["exp_name"])
+save_ckpt = os.path.join(logger.log_dir, "checkpoints")
+assert not os.path.exists(save_ckpt), "checkpoint dir none empty!"
+os.makedirs(save_ckpt)
 
 trainer = Trainer(
     max_epochs = config["max_epochs"],
@@ -41,13 +44,12 @@ trainer = Trainer(
     callbacks=[LearningRateMonitor(logging_interval="step"),
         TQDMProgressBar(refresh_rate=config["refresh_rate"]),
         ModelCheckpoint(
-            dirpath=os.path.join(logger.log_dir, "checkpoints"),
+            dirpath=save_ckpt,
             filename="{epoch}-{step}-{val_loss:.2f}",
             monitor="val_loss",
             save_last=True,
             save_top_k=2,
-            mode="min",
-            save_on_train_epoch_end=True
+            mode="min"
             )
     ],
     val_check_interval=config["val_check_interval"]

@@ -11,5 +11,5 @@ refresh_rate: 30
 log_dir: "lightning_logs/"
 exp_name: "resnet"
 model_name: "ResNet"
-val_check_interval: 0.25
+val_check_interval: 0.01
 resume_path: ""

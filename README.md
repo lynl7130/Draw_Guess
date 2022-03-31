@@ -179,7 +179,7 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 ```conda activate ./env```
 
 ### train a vanilla model
-```python classify.py```
+```python train.py```
 
 ### try interface
 ```Everything is todo here```
