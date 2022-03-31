@@ -206,6 +206,16 @@ For details of the arguments, check [here](configs/args.py) and [here](configs/v
 #### Testing a trained model
 ```python train.py ---exp_yaml configs/vanilla.yaml --resume_path path/to/your/ckpt --is_test```
 
+
+### Check Experiemnt Logs
+
+Faciliated by [Tensorboard](https://www.tensorflow.org/tensorboard)
+
+#### Visualize vanilla model log
+```tensorboard --logdir ./lightning_logs/resnet/version_??```
+
+<image src="demo/log_train_loss_vanilla.png">
+
 ### Interface
 ```Everything is todo here```
 
