@@ -13,3 +13,4 @@ exp_name: "resnet"
 model_name: "ResNet"
 val_check_interval: 0.01
 resume_path: ""
+topk: 5

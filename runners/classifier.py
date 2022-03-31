@@ -12,11 +12,13 @@ class Classifier(pl.LightningModule):
         input_dim=1,
         num_classes=250,
         batch_size = 32,
-        steps_per_epoch = 11808
+        steps_per_epoch = None,
+        topk = 5
         ):
         super().__init__()
         self.batch_size = batch_size
         self.steps_per_epoch = steps_per_epoch 
+        self.topk = topk
         self.save_hyperparameters()
         if model_name=="ResNet":
             self.model = create_ResNet(
@@ -40,13 +42,13 @@ class Classifier(pl.LightningModule):
         y = batch["tgt"]
         logits = self(x)
         loss = F.nll_loss(logits, y)
-        preds = torch.argmax(logits, dim=1)
-        acc = accuracy(preds, y)
+        
 
         if stage:
             self.log(f"{stage}_loss", loss, prog_bar=True)
-            self.log(f"{stage}_acc", acc, prog_bar=True)
-
+            for k in range(1, self.topk+1):
+                self.log(f"{stage}_acc@%s" % k, accuracy(logits, y, top_k=k), prog_bar=True)
+        
     def validation_step(self, batch, batch_idx):
         self.evaluate(batch, "val")
 

@@ -27,7 +27,8 @@ model = runners.Classifier(lr=config["lr"],
     input_dim=config["input_dim"],
     num_classes=config["num_classes"],
     batch_size=config["batch_size"],
-    steps_per_epoch = steps_per_epoch)
+    steps_per_epoch = steps_per_epoch,
+    topk = config["topk"])
 model.datamodule = datamodule
 
 # tensorboard logger will automatically create a version directory for us under log_dir/exp_name 

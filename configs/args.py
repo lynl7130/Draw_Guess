@@ -20,6 +20,7 @@ def get_args():
     parser.add_argument("--exp_name", required=False, type=str, help="experiment name")
     parser.add_argument("--model_name", required=False, type=str, help="which model architecture to train/test")
     parser.add_argument("--val_check_interval", required=False, type=float, help="run validation how many times per epoch")
+    parser.add_argument("--topk", required=False, type=int, help="accuracy metrics control")
     parser.add_argument("--resume_path", required=False, type=str, help="if want to resume training")
     args = parser.parse_args()
     
