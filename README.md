@@ -173,15 +173,40 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 
 ## Usage
 
-### prepare [environment](#env-setting) and [data](#data)
+### Preparation
+1. set [environment](#env-setting)
+2. download [data](#data)
 
-### activate env
-```conda activate ./env```
+### Activate Conda Env
+```
+cd path/to/this/repo
+conda activate ./env
+```
 
-### train a vanilla model
-```python train.py```
+### Train/Test
+```
+python train.py [-h] --exp_yaml EXP_YAML 
+  [--seed SEED] [--lr LR]
+  [--input_dim INPUT_DIM] [--num_classes NUM_CLASSES]       
+  [--batch_size BATCH_SIZE] [--train_base TRAIN_BASE]       
+  [--root_dir ROOT_DIR] [--num_workers NUM_WORKERS]
+  [--max_epochs MAX_EPOCHS] [--refresh_rate REFRESH_RATE]   
+  [--log_dir LOG_DIR] [--exp_name EXP_NAME]
+  [--model_name MODEL_NAME]
+  [--val_check_interval VAL_CHECK_INTERVAL] [--topk TOPK]   
+  [--resume_path RESUME_PATH] [--is_test]
+  
+```
 
-### try interface
+For details of the arguments, check [here](configs/args.py) and [here](configs/vanilla.yaml).
+
+#### Training a vanilla model
+```python train.py --exp_yaml configs/vanilla.yaml```
+
+#### Testing a trained model
+```python train.py ---exp_yaml configs/vanilla.yaml --resume_path path/to/your/ckpt --is_test```
+
+### Interface
 ```Everything is todo here```
 
 ## Related Work 

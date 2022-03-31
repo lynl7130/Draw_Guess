@@ -55,6 +55,13 @@ trainer = Trainer(
     ],
     val_check_interval=config["val_check_interval"]
 )
-# even when starting from an existing checkpoint path, will create a new version directory
-trainer.fit(model, model.datamodule, ckpt_path=config["resume_path"] if config["resume_path"] != "" else None)
-trainer.test(model, model.datamodule)
+if not config['is_test']:
+    # even when starting from an existing checkpoint path, will create a new version directory
+    trainer.fit(model, model.datamodule, ckpt_path=config["resume_path"] if config["resume_path"] != "" else None)
+    trainer.test(model, model.datamodule)
+else:
+    # note, even when doing merely testing, will be a seperate dir created for this run
+    assert config["resume_path"] is not None, "Test ckpt not provided!"
+    assert config["resume_path"].endswith(".ckpt") and os.path.exists(config["resume_path"]), "Not a legal test ckpt!"
+    trainer.test(model, model.datamodule, ckpt_path=config["resume_path"])
+    

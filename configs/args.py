@@ -22,6 +22,7 @@ def get_args():
     parser.add_argument("--val_check_interval", required=False, type=float, help="run validation how many times per epoch")
     parser.add_argument("--topk", required=False, type=int, help="accuracy metrics control")
     parser.add_argument("--resume_path", required=False, type=str, help="if want to resume training")
+    parser.add_argument("--is_test", action="store_true", help="if passed, only test, do not train")
     args = parser.parse_args()
     
     # open yaml
@@ -34,4 +35,4 @@ def get_args():
 
 if __name__ == "__main__":
     args = get_args()
-    
+    print([key for key in args])
