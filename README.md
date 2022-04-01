@@ -42,7 +42,10 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
 **PyTorch CUDA Toolkit**: 11.3
  
 ### Installation
-```something here```
+
+Make sure Anaconda is installed.
+
+```conda env create -f environment.yaml```
 
 
 ## Data
