@@ -230,10 +230,12 @@ The same configuration as [train/test](#traintest).
 
 <image src="demo/interface.png">
 
+Note: for now sensitive to strike thickness!
+
 ### Extend a new model
 
 1. add ```yourmodel.py``` to ```./models```
-```
+```python
 import ...
 
 def create_model(
@@ -245,7 +247,7 @@ def create_model(
 ```
 
 2. modify ```./models/__init__.py```
-```
+```python
 # append this line in import section
 from .yourmodel import create_model as create_yourmodel
 
