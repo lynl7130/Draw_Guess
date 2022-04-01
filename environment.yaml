@@ -1,4 +1,4 @@
-name: null
+name: drawguess
 channels:
   - pytorch
   - defaults
@@ -146,4 +146,4 @@ dependencies:
     - uvicorn==0.17.6
     - werkzeug==2.1.0
     - yarl==1.7.2
-prefix: /mnt/d/courses/2470/Draw_Guess/env
+prefix: null
