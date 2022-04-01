@@ -4,6 +4,8 @@ from torch.optim.lr_scheduler import OneCycleLR
 from models import create_ResNet
 import torch
 from torchmetrics.functional import accuracy
+from PIL import Image
+import numpy as np
 
 class Classifier(pl.LightningModule):
     def __init__(self, 
@@ -13,12 +15,14 @@ class Classifier(pl.LightningModule):
         num_classes=250,
         batch_size = 32,
         steps_per_epoch = None,
-        topk = 5
+        topk = 5,
+        flip_bw=False,
         ):
         super().__init__()
         self.batch_size = batch_size
         self.steps_per_epoch = steps_per_epoch 
         self.topk = topk
+        self.flip_bw = flip_bw
         self.save_hyperparameters()
         if model_name=="ResNet":
             self.model = create_ResNet(
@@ -28,6 +32,8 @@ class Classifier(pl.LightningModule):
         else:
             assert False, "Undefined model name %s" % model_name
     def forward(self, x):
+        if self.flip_bw:
+            x = 1. - x
         out = self.model(x)
         return F.log_softmax(out, dim=1)
     def training_step(self, batch, batch_idx):

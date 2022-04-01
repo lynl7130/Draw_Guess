@@ -17,7 +17,8 @@ datamodule = data.SketchyDataModule(
     root_dir=config["root_dir"],
     train_ratio=train_ratio,
     batch_size=config["batch_size"],
-    num_workers=config["num_workers"])
+    num_workers=config["num_workers"],
+    )
 
 
 steps_per_epoch = datamodule.calc_steps_per_epoch()
@@ -28,7 +29,8 @@ model = runners.Classifier(lr=config["lr"],
     num_classes=config["num_classes"],
     batch_size=config["batch_size"],
     steps_per_epoch = steps_per_epoch,
-    topk = config["topk"])
+    topk = config["topk"],
+    flip_bw=config["flip_bw"])
 model.datamodule = datamodule
 
 # tensorboard logger will automatically create a version directory for us under log_dir/exp_name 

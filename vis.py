@@ -56,6 +56,8 @@ def sketch_recognition(img):
     #return ",".join([x.shape, torch.max(x), torch.min(x)])
 
     # pass model to get logits
+    if config["flip_bw"]:
+        x = 1. - x
     out = model(x)
     logits = F.softmax(out, dim=1)
 

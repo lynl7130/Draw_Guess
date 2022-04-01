@@ -198,7 +198,7 @@ python train.py [-h] --exp_yaml EXP_YAML
   [--model_name MODEL_NAME]
   [--val_check_interval VAL_CHECK_INTERVAL] [--topk TOPK]   
   [--resume_path RESUME_PATH] [--is_test]
-  
+  [--flip_bw FLIP_BW]
 ```
 
 For details of the arguments, check [here](configs/args.py) and [here](configs/vanilla.yaml).

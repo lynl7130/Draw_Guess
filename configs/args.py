@@ -23,6 +23,7 @@ def get_args():
     parser.add_argument("--topk", required=False, type=int, help="accuracy metrics control")
     parser.add_argument("--resume_path", required=False, type=str, help="if want to resume training")
     parser.add_argument("--is_test", action="store_true", help="if passed, only test, do not train")
+    parser.add_argument("--flip_bw", required=False, type=bool, help="if False: stroke color is back, background is white; flip if True")
     args = parser.parse_args()
     
     # open yaml
