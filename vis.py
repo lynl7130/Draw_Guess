@@ -42,16 +42,16 @@ def sketch_recognition(img):
     # value falls in between 0 - 255, not 0/255 as in our case
     # also, the brush is thicker than ours, so thresholding to be 0/255
     # followed by dilation
+    '''
     tmp = np.zeros_like(img).astype(float)
     tmp[img > threshold] = 1.
-    tmp = ndimage.binary_dilation(tmp, structure=np.ones((10,10)).astype(tmp.dtype)).astype(tmp.dtype)
-    #img = tmp * 255
-    #tmp = Image.fromarray(np.uint8(img))
-    #tmp.save("test.png")
-
+    img = ndimage.binary_dilation(tmp, structure=np.ones((10,10)).astype(tmp.dtype)).astype(tmp.dtype)
+    
+    Image.fromarray(np.uint8(img * 255)).save("test.png")
+    '''
     # form input  
     # time-consuming part! 10s
-    x = torch.from_numpy(tmp).to(device).view(1, 1, tmp.shape[0], tmp.shape[1]).float()   
+    x = torch.from_numpy(img/255.).to(device).view(1, 1, img.shape[0], img.shape[1]).float()   
     #print(x.shape, torch.max(x), torch.min(x))
     #return ",".join([x.shape, torch.max(x), torch.min(x)])
 
@@ -79,7 +79,8 @@ if __name__ == "__main__":
             shape=(256, 256), 
             image_mode="L", 
             invert_colors=False, 
-            source="canvas"
+            source="upload",
+            #source="canvas"
         ), 
 
         outputs="label").launch()

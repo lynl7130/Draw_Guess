@@ -12,5 +12,6 @@ log_dir: "lightning_logs/"
 exp_name: "resnet"
 model_name: "ResNet"
 val_check_interval: 0.25
+resume_path: ""
 topk: 5
 flip_bw: False
