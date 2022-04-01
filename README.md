@@ -230,6 +230,39 @@ The same configuration as [train/test](#traintest).
 
 <image src="demo/interface.png">
 
+### Extend a new model
+
+1. add ```yourmodel.py``` to ```./models```
+```
+import ...
+
+def create_model(
+  ...
+):
+  ...
+  return model
+
+```
+
+2. modify ```./models/__init__.py```
+```
+# append this line in import section
+from .yourmodel import create_model as create_yourmodel
+
+# add else if inside create_model function
+def create_model(config):
+  if ...
+  else if config["model_name"]=="yourmodel":
+    model = create_yourmodel(
+            ...
+        )
+  ...
+
+```
+
+3. now you can select to use this model architecture by 
+```model_name=yourmodel``` in configs!
+
 ## Related Work 
 
 The task we want to solve is free-hand full-sketch image-based sketch recognition. i.e. We assume no stroke sequence information will be provided, and the only input we have will be a picture. Thus, we analyze four works tackling the same task [\[4, 5, 6, 7\]](#reference).

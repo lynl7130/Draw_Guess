@@ -1,6 +1,6 @@
 import gradio as gr
 import numpy as np
-from models import create_ResNet
+from models import create_model
 import torch
 from PIL import Image
 from configs import get_args
@@ -15,13 +15,7 @@ threshold=250
 
 config = get_args()
 print("Loading model architecture...")
-if config["model_name"]=="ResNet":
-    model = create_ResNet(
-        config["input_dim"],
-        config["num_classes"]
-        ).to(device)
-else:
-    assert False, "Undefined model name %s" % config["model_name"]
+model = create_model(config).to(device)
 
 print("Loading checkpoint...")
 assert config["resume_path"] is not None, "Vis ckpt not provided!"
