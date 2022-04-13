@@ -24,10 +24,10 @@ Requirement file is provided [here](https://docs.google.com/document/d/1olgVdN7W
     - [x] vanilla classifier (ResNet)
   - [x] write interface using [Gradio](https://gradio.app/)
   - [x] field study of sketch recognition
-  - [ ] brainstorm of methodology
+  - [x] brainstorm of methodology
   - [x] brainstorm of metrics
-  - [ ] brainstorm of ethics
-  - [ ] write up outlines
+  - [x] brainstorm of ethics
+  - [x] write up outlines
 - [ ] 4/20 - 4/27 Project Check-in #3
 - [ ] 5/2 - 5/9 Final Check in
 - [ ] 5/11 Final Project Due
