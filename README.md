@@ -230,7 +230,7 @@ The same configuration as [train/test](#traintest).
 
 <image src="demo/interface.png">
 
-Note: for now sensitive to strike thickness!
+Note: for now sensitive to stroke thickness!
 
 ### Extend a new model
 
@@ -301,8 +301,10 @@ The task we want to solve is free-hand full-sketch image-based sketch recognitio
 
 ## Methodology
 
-```hint: CLIP-based ``` 
-```hint: flip 1/0 - black/white might help? currently activation is blank```
+Use CNN + Transformer
+- Main reference: Hybrid CNN [7]
+- Use CNN for both A-net and S-net
+- Our novelty: use Transformer after concatenation of A-net and S-net for spatial long-term memory in order to achieve greater accuracy
 
 ## Evaluation
 
