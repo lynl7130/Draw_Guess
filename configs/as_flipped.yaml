@@ -1,17 +1,17 @@
 seed: 7
-lr: 0.05
+lr: 0.001
 num_classes: 250
 batch_size: 32
 train_base: 12
 root_dir: "/mnt/f/sketchy/256x256"
 num_workers: 4 #exceed -> overheat
-max_epochs: 1
+max_epochs: 3
 refresh_rate: 30
 log_dir: "lightning_logs/"
-exp_name: "resnet_flipped"
-model_name: "ResNet"
+exp_name: "as_flipped"
+model_name: "AS"
 val_check_interval: 0.25
 resume_path: ""
 topk: 5
 flip_bw: True
-fps_mode: 2
+fps_mode: 1

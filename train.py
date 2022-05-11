@@ -15,6 +15,7 @@ seed_everything(config["seed"])
 
 datamodule = data.SketchyDataModule(
     root_dir=config["root_dir"],
+    fps_mode=config["fps_mode"],
     train_ratio=train_ratio,
     batch_size=config["batch_size"],
     num_workers=config["num_workers"],
@@ -25,7 +26,6 @@ steps_per_epoch = datamodule.calc_steps_per_epoch()
 
 model = runners.Classifier(lr=config["lr"],
     model_name=config["model_name"],
-    input_dim=config["input_dim"],
     num_classes=config["num_classes"],
     batch_size=config["batch_size"],
     steps_per_epoch = steps_per_epoch,

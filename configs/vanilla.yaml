@@ -1,6 +1,5 @@
 seed: 7
 lr: 0.05
-input_dim: 1
 num_classes: 250
 batch_size: 32
 train_base: 12
@@ -15,3 +14,4 @@ val_check_interval: 0.25
 resume_path: ""
 topk: 5
 flip_bw: False
+fps_mode: 2

@@ -1,15 +1,15 @@
 seed: 7
-lr: 0.05
+lr: 0.001
 num_classes: 250
 batch_size: 32
 train_base: 12
 root_dir: "/mnt/f/sketchy/256x256"
 num_workers: 4 #exceed -> overheat
-max_epochs: 1
+max_epochs: 2
 refresh_rate: 30
 log_dir: "lightning_logs/"
-exp_name: "resnet_flipped"
-model_name: "ResNet"
+exp_name: "cnnvit_flipped"
+model_name: "VIT"
 val_check_interval: 0.25
 resume_path: ""
 topk: 5

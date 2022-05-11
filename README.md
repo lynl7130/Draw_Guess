@@ -179,6 +179,7 @@ Download Sketchy Database from [here](https://sketchy.eye.gatech.edu/)
 ### Preparation
 1. set [environment](#env-setting)
 2. download [data](#data)
+3. prepare FPS data by calling ```fps_sampling``` function from [here](https://github.com/lynl7130/Draw_Guess/blob/main/data/classification_dataset.py)
 
 ### Activate Conda Env
 ```
@@ -326,6 +327,70 @@ qualitative:
     <td>rank-3</td>
     <td>rank-4</td>
     <td>rank-5</td>
+  </tr>
+  <tr>
+    <td>ResNet</td>
+    <td>78.4</td>
+    <td>87.3</td>
+    <td>90.9</td>
+    <td>92.8</td>
+    <td>94.0</td>
+  </tr>
+  <tr>
+    <td>CNN</td>
+    <td>45.2</td>
+    <td>61.5</td>
+    <td>70.0</td>
+    <td>75.5</td>
+    <td>79.4</td>
+  </tr>
+  <tr>
+    <td>CNN+ViT</td>
+    <td>48.3</td>
+    <td>61.2</td>
+    <td>68.0</td>
+    <td>72.6</td>
+    <td>76.0</td>
+  </tr>
+  <tr>
+    <td>ViT</td>
+    <td>59.1</td>
+    <td>71.2</td>
+    <td>77.1</td>
+    <td>80.9</td>
+    <td>83.5</td>
+  </tr>
+  <tr>
+    <td>ViT+FPS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>ASNet</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>ResNet+FPS</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>ViT-FPS-only</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
 
 </table>

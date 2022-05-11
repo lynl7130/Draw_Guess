@@ -11,7 +11,6 @@ class Classifier(pl.LightningModule):
     def __init__(self, 
         lr=0.05,
         model_name="ResNet",
-        input_dim=1,
         num_classes=250,
         batch_size = 32,
         steps_per_epoch = None,

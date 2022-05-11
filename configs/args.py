@@ -8,7 +8,7 @@ def get_args():
     # able to override yaml if needed
     parser.add_argument("--seed",  required=False, type=int, help="Global seed for the exp")
     parser.add_argument("--lr", required=False, type=float, help="initial learning rate for the exp")
-    parser.add_argument("--input_dim", required=False, type=int, help="input channel size for the model")
+    #parser.add_argument("--input_dim", required=False, type=int, help="input channel size for the model")
     parser.add_argument("--num_classes", required=False, type=int, help="possible sketch classes")
     parser.add_argument("--batch_size", required=False, type=int, help="batch size for training")
     parser.add_argument("--train_base", required=False, type=int, help="how to split train set and val set")
@@ -24,6 +24,7 @@ def get_args():
     parser.add_argument("--resume_path", required=False, type=str, help="if want to resume training")
     parser.add_argument("--is_test", action="store_true", help="if passed, only test, do not train")
     parser.add_argument("--flip_bw", required=False, type=bool, help="if False: stroke color is back, background is white; flip if True")
+    parser.add_argument("--fps_mode", required=False, type=int, help="if set, load fps sampled sketch alongside with raw sketch")
     args = parser.parse_args()
     
     # open yaml
