@@ -8,8 +8,8 @@ num_workers: 4 #exceed -> overheat
 max_epochs: 3
 refresh_rate: 30
 log_dir: "lightning_logs/"
-exp_name: "as_flipped"
-model_name: "AS"
+exp_name: "as_2_flipped"
+model_name: "AS_2"
 val_check_interval: 0.25
 resume_path: ""
 topk: 5

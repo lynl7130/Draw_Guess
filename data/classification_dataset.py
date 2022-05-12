@@ -9,7 +9,7 @@ from torch_cluster import fps
 from torchvision.utils import make_grid
 import torchvision
 import torch.multiprocessing as mp
-
+import time
 
 class SketchyDataset(Dataset):
     def __init__(self,
@@ -58,24 +58,56 @@ class SketchyDataset(Dataset):
     def __len__(self):
         return len(self.data)
 
+    def load_data(self, path, rgb=False):
+        data = Image.open(path)
+        data.draft("L", (256, 256))
+        if rgb:
+            data = ImageOps.grayscale(data)
+        return np.asarray(data)/255.
+
     def __getitem__(self, idx):
         if self.fps_mode==0:
-            fps = np.array(ImageOps.grayscale(Image.open(self.fps[idx][0])))/255.
+            fps = self.load_data(self.fps[idx][0])
             return {
                 "img": np.expand_dims(fps, axis=0), # shape 1x256x256
                 "tgt": self.data[idx][1]
             }
-        elif self.fps_mode==1: 
-            img = np.array(ImageOps.grayscale(Image.open(self.data[idx][0])))/255.
-            fps = np.array(ImageOps.grayscale(Image.open(self.fps[idx][0])))/255.
+        elif self.fps_mode == 4:
+            fps = self.load_data(self.fps[idx][0])
+            fps = np.eye(2)[fps.reshape(-1).astype(int)].reshape(fps.shape[0], fps.shape[1], 2).transpose(2, 0, 1)
             return {
-                "img": np.stack([img, fps], axis=0), # shape 2x256x256
+                "img": fps, # shape 2x256x256
+                "tgt": self.data[idx][1]
+            }
+        elif self.fps_mode==1: 
+            img = self.load_data(self.data[idx][0], True)
+            fps = self.load_data(self.fps[idx][0])
+            result = None
+            try: 
+                result = np.concatenate([np.expand_dims(img, axis=0), np.expand_dims(fps, axis=0)], axis=0) # 2x256x256
+            except:
+                print(img.shape, fps.shape)
+            return {
+                "img": result,
                 "tgt": self.data[idx][1]
             }
         elif self.fps_mode==2:
-            img = np.array(ImageOps.grayscale(Image.open(self.data[idx][0])))/255.
+            img = self.load_data(self.data[idx][0], True)
             return {
                 "img": np.expand_dims(img, axis=0), # shape 1x256x256
+                "tgt": self.data[idx][1]
+            }
+        elif self.fps_mode == 3:
+            img = self.load_data(self.data[idx][0], True)
+            fps = self.load_data(self.fps[idx][0])
+            fps = np.eye(2)[fps.reshape(-1).astype(int)].reshape(fps.shape[0], fps.shape[1], 2).transpose(2, 0, 1)
+            result = None
+            try: 
+                result = np.concatenate([np.expand_dims(img, axis=0), fps], axis=0) # 3x256x256
+            except:
+                print(img.shape, fps.shape)
+            return {
+                "img": result,
                 "tgt": self.data[idx][1]
             }
         else:
@@ -113,11 +145,11 @@ class SketchyDataModule(pl.LightningDataModule):
         else:
             self.data_test = SketchyDataset(self.root_dir, is_train=False, fps_mode=self.fps_mode)
     def train_dataloader(self):
-        return DataLoader(self.data_train, shuffle=True, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(self.data_train, shuffle=True, batch_size=self.batch_size, num_workers=self.num_workers, pin_memory=False)
     def val_dataloader(self):
-        return DataLoader(self.data_val, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(self.data_val, batch_size=self.batch_size, num_workers=self.num_workers, pin_memory=False)
     def test_dataloader(self):
-        return DataLoader(self.data_test, batch_size=self.batch_size, num_workers=self.num_workers)
+        return DataLoader(self.data_test, batch_size=self.batch_size, num_workers=self.num_workers, pin_memory=False)
 
 def worker(aug, sketch_dir, cls_dir, classes):
     pbar = tqdm(total=len(classes))
@@ -202,5 +234,31 @@ if __name__ == "__main__":
     #print(np.max(sample["img"]), np.min(sample['img']), sample['img'].shape)
     #img = Image.fromarray(np.uint8(sample['img'][0]*255))
     #img.save("tmp.png")
+    ''' 
+    # fps generation 
     mp.set_start_method('spawn')
     fps_sampling("/mnt/f/sketchy/256x256/sketch")
+    '''
+
+    # speed up image loading
+    path = "/mnt/f/sketchy/256x256/sketch/fps_000000000000/bear/n02131653_808-5.png"
+    start = time.time()
+    fps = np.array(ImageOps.grayscale(Image.open(path)))/255.  
+    end = time.time()
+    print("old one", end - start)
+    start = time.time()
+    fps = Image.open(path)
+    fps.draft("L", (256, 256))
+    fps = np.asarray(fps)/255.
+    fps = np.eye(2)[fps.reshape(-1).astype(int)].reshape(fps.shape[0], fps.shape[1], 2).transpose(2, 0, 1)
+    assert False, (fps.shape, fps)
+    end = time.time()
+    print("new one: ", end - start)
+    start = time.time()
+    fps = Image.open(path)
+    fps.draft("L", (256, 256))
+    fps = ImageOps.grayscale(fps)
+    fps = np.asarray(fps)/255.
+    end = time.time()
+    print("rgb one: ", end - start)
+    Image.fromarray((fps*255.).astype(np.uint8)).save("tmp.png")

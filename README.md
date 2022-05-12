@@ -336,6 +336,14 @@ qualitative:
     <td>92.8</td>
     <td>94.0</td>
   </tr>
+   <tr>
+    <td>ResNet+FPS</td>
+    <td>78.5</td>
+    <td>87.3</td>
+    <td>90.7</td>
+    <td>92.7</td>
+    <td>94.0</td>
+  </tr>
   <tr>
     <td>CNN</td>
     <td>45.2</td>
@@ -370,28 +378,37 @@ qualitative:
   </tr>
   <tr>
     <td>ASNet</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>38.8</td>
+    <td>52.6</td>
+    <td>60.1</td>
+    <td>65.4</td>
+    <td>69.4</td>
   </tr>
   <tr>
-    <td>ResNet+FPS</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>ASNet-2</td>
+    <td>49.6</td>
+    <td>62.5</td>
+    <td>69.3</td>
+    <td>73.9</td>
+    <td>77.3</td>
   </tr>
   <tr>
-    <td>ViT-FPS-only</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>ASNet-3</td>
+    <td>77.6</td>
+    <td>86.4</td>
+    <td>90.1</td>
+    <td>92.3</td>
+    <td>93.7</td>
   </tr>
+  <tr>
+    <td>ASNet-4</td>
+    <td>81.4</td>
+    <td>89.5</td>
+    <td>92.5</td>
+    <td>94.2</td>
+    <td>95.3</td>
+  </tr>
+
 
 </table>
 

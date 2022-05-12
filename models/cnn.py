@@ -159,7 +159,7 @@ class AS_Net(nn.Module):
             0
         )
 
-        self.fconv1 = nn.Conv2d(1,64,7,padding=3, stride=2)
+        self.fconv1 = nn.Conv2d(input_dim-1,64,7,padding=3, stride=2)
         self.fconv1_bn=nn.BatchNorm2d(64)
         self.fblock1 = self._make_layer(
             2,
@@ -230,6 +230,113 @@ class AS_Net(nn.Module):
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
 
+        # S
+        x_ = F.relu(self.fconv1_bn(self.fconv1(x_)))
+        x_ = F.max_pool2d(x_, 3, 2)
+        x_ = self.fblock1(x_)
+        x_ = self.fblock2(x_)
+        x_ = self.fblock3(x_)
+        x_ = self.avgpool(x_)
+        x_ = torch.flatten(x_, 1)
+        #assert False, (x.shape, x_.shape)
+        return self.fc(torch.cat((x, x_), dim=-1))
+        #x = F.relu(self.fc1(x))
+        #x = F.relu(self.fc2(x))
+        #x = torch.sigmoid(x)
+        #return x
+class AS_Net_2(nn.Module):
+    def __init__(self, input_dim, num_classes):
+        super().__init__()
+        self.conv = nn.Conv2d(1,64,7,padding=3, stride=2)
+        self.conv_bn = nn.BatchNorm2d(64)
+        self.fconv = nn.Conv2d(input_dim-1,64,7,padding=3, stride=2)
+        self.fconv_bn=nn.BatchNorm2d(64)
+        self.block1 = self._make_layer(
+            2,
+            128,
+            128,
+            3,
+            2,
+            1,
+            0
+        )
+        self.block2 = self._make_layer(
+            2,
+            128,
+            128,
+            3,
+            2,
+            1,
+            0
+        )
+        self.block3 = self._make_layer(
+            2,
+            128,
+            256,
+            3,
+            2,
+            1,
+            0
+        )
+        self.block4 = self._make_layer(
+            2,
+            256,
+            512,
+            3,
+            2,
+            1,
+            0
+        )
+
+        
+
+        #self.conv6 = nn.Conv2d(256,256,3,1, padding= 1)
+        #self.conv6_bn=nn.BatchNorm2d(256)
+        #self.conv7 = nn.Conv2d(256,256,3,1, padding= 1)
+        #self.conv7_bn=nn.BatchNorm2d(256)
+        #self.flat = nn.Conv2d(256,512,7,1)
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = nn.Linear(512, num_classes)
+        #self.fc2 = nn.Linear(512, 256)
+        #self.fc3 = nn.Linear(256, 250)
+        #self.fc2 = nn.Linear(512, num_classes)
+    def _make_layer(self, 
+        num_layer,
+        in_channels,
+        out_channels,
+        kernel_size,
+        stride,
+        padding, 
+        dilation):
+        downsample = nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False),
+            nn.BatchNorm2d(out_channels)
+        )
+        #return downsample
+        layers = []
+        layers.append(Bottleneck(in_channels, out_channels, kernel_size,
+            stride, padding, dilation, downsample))
+        for i in range(1, num_layer):
+            layers.append(Bottleneck(out_channels, out_channels))
+        return nn.Sequential(*layers)    
+    def forward(self,data):
+        x, x_ = data[:, :1, ...], data[:, 1:, ...]
+        
+        # A
+        x = F.relu(self.conv_bn(self.conv(x)))
+        x = F.max_pool2d(x, 3, 2)
+        x_ = F.relu(self.fconv_bn(self.fconv(x_)))
+        x_ = F.max_pool2d(x_, 3, 2)
+        x = torch.cat((x, x_), dim=1)
+        
+        x = self.block1(x)
+        x = self.block2(x)
+        x = self.block3(x)
+        x = self.block4(x)
+        x = self.avgpool(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
+        return x
         # S
         x_ = F.relu(self.fconv1_bn(self.fconv1(x_)))
         x_ = F.max_pool2d(x_, 3, 2)
@@ -375,9 +482,13 @@ def create_AS(input_dim, num_classes):
     model = AS_Net(input_dim, num_classes)
     return model
 
+def create_AS_2(input_dim, num_classes):
+    model = AS_Net_2(input_dim, num_classes)
+    return model
+
 if __name__ == "__main__":
     device = torch.device("cuda")
-    model = create_AS(2, 250).to(device)
+    model = create_AS_2(2, 250).to(device)
     fake = torch.rand(64, 2, 256, 256).float().to(device)
     pred = model(fake)
     print(pred.shape)
